@@ -74,18 +74,27 @@ public class TableauPartiel<E> {
         return trouvé;
     }
 
-//    public TableauPartiel<E> coupe(Coupe a_coupe)         throws IndexHorsPorte
+    public void coupe(Coupe a_coupe) throws IndexHorsPorte {
+        //TableauPartiel<E> type de retour
 //Finalement, la méthode coupe donne un nouveau TableauPartiel à partir de la coupe donnée.
 //Ce nouveau tableau contient une référence sur le tableau d’origine. Donc, les cases modifiées dans ce
 //nouveau tableau seront aussi modifiées dans l’ancien tableau. Le premier élément d’un
 //TableauPartiel est adressé par l’indice zéro, même si son indice diffère dans le tableau d’origine.
 //Si la Coupe contient un ou des indices non valides, l’exception IndexHorsPorte est lancée.
-//    public E[] elements() {
-////    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
-////C’est une copie du tableau qui doit être retournée
-//
-//        return E[] tmp;
-//    }
+     }
+
+    public E[] elements() {
+//    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
+//C’est une copie du tableau qui doit être retournée
+
+         E[] tableaujava;
+        tableaujava = (E[]) new Object[(taille())];
+        for (int indice = 0; indice <= taille() - 1; ++indice) {
+            tableaujava[indice] = _tableau[indice];
+        }       
+        return tableaujava;
+    }
+
     public boolean estVide() {
         return taille() == 0;
     }
