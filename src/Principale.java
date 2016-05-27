@@ -13,11 +13,13 @@ public class Principale {
     public static void main(String[] args) {
         System.out.println("Tp1.Principale.main()");
         Integer [] monTab = {0,1,2,3,4,5,6,7,8,9};
+//        Integer [] monTab = {};
 //       Legume monLegume = new Legume(10);
-        TableauPartiel tp = new TableauPartiel(monTab);
+        TableauPartiel <Integer> tp = new TableauPartiel<>(monTab);
         TableauPartiel tp99 = tp;
-        System.out.println("Tableau tp "+tp.taille());
-        monTab[1] = 999;
+        System.out.println("Tableau contient 99 "+tp.contient(99));
+        System.out.println("Tableau contient 5 "+tp.contient(5));
+
     }
     public static int faireTotal (Integer [] Tab_par) {
         int tot = 0;

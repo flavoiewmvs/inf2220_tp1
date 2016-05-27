@@ -18,22 +18,27 @@ public class TableauPartiel<E> {
         _tableau = a_tableauPartiel._tableau;
     }
 
- 
     public int position(E a_element) throws ElementNonPresent {
 //        Cette méthode retourne la position (l’index) d’un élément. Si l’élément est présent plus d’une fois,
-//alors l’élément ayant la position la plus petite est retourné. Si l’élément n’est pas dans le tableau, une
-//exception est lancée : ElementNonPresent .
+//alors l’élément ayant la position la plus petite est retourné. 
+//exception est lancée : ElementNonPresent Si l’élément n’est pas dans le tableau
 //La méthode equals de la classe Object est utilisée pour les comparaisons dans les méthodes contient ,
 //position et remplacer .
         return 1;
     }
 
     public boolean contient(E a_element) {
-//        Cette méthode cherche un élément dans le tableau et retourne true si l’élément est présent, false
-//sinon.
+//        Cette méthode cherche un élément dans le tableau et retourne true si l’élément est présent
 //La méthode equals de la classe Object est utilisée pour les comparaisons dans les méthodes contient ,
 //position et remplacer .
-        return true;
+        boolean trouvé = false;
+        for (int i = 0; i < _tableau.length && !trouvé; i++) {
+            E item = _tableau[i];
+            if (item.equals(a_element)) {
+                trouvé = true;
+            }
+        }
+        return trouvé;
     }
 
 //    public TableauPartiel<E> coupe(Coupe a_coupe)         throws IndexHorsPorte
@@ -48,20 +53,19 @@ public class TableauPartiel<E> {
 //
 //        return E[] tmp;
 //    }
-
     public boolean estVide() {
-        return true;
+        return taille() == 0;
     }
 
-    public E get(int a_position)             throws IndexHorsPorte {
+    public E get(int a_position) throws IndexHorsPorte {
 //        Cette méthode retourne une référence sur l’élément situé à la position donnée. Si la position donnée
 //n’est pas valide, vous devez lever une exception IndexHorsPorte . Vous devez aussi construire
 //cette exception.
-        E TEST=null;
+        E TEST = null;
         return TEST;
     }
 
-    public void remplacer(E a_ancien, E a_nouveau) throws ElementNonPresent{
+    public void remplacer(E a_ancien, E a_nouveau) throws ElementNonPresent {
 //        public void remplacer( E a_ancien , E a_nouveau ) .
 //Cette méthode trouve les occurrences d’un élément et les remplaces par le nouvel élément.
 //La méthode equals de la classe Object est utilisée pour les comparaisons dans les méthodes contient ,
@@ -75,7 +79,7 @@ public class TableauPartiel<E> {
     }
 
     public int taille() {
- //Cette méthode retourne le nombre de case que contient le tableau.
+        //Cette méthode retourne le nombre de case que contient le tableau.
         return _tableau.length;
     }
 }
