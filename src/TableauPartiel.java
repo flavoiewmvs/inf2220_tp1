@@ -27,6 +27,10 @@ public class TableauPartiel<E> {
 
     public TableauPartiel(E[] a_tableau) {
         _tableau = (E[]) new Object[(a_tableau.length)];
+        
+               E[] qq;
+        qq = (E[]) new Object[(taille())];
+        _tableau = (E[]) new Object[(a_tableau.length)];
 
         for (int indice = 0; indice <= a_tableau.length - 1; ++indice) {
             _tableau[indice] = a_tableau[indice];
