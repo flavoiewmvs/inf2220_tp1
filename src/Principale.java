@@ -23,9 +23,20 @@ public class Principale {
         System.out.println(monTab[5]);
         System.out.println("Tableau contient 99 " + tp.contient(99));
         System.out.println("Tableau contient 5 " + tp.contient(5));
-        System.out.println( "--->>>"+tp.elements());
-        System.out.println( "--->>>");
+        System.out.println("--->>>" + tp.elements());
+        System.out.println("--->>>");
+
         Object[] monTabRetour = tp.elements();
+
+        try {
+            CoupeA test = new CoupeA(5);
+            TableauPartiel<Integer> tpcoupe;
+            System.out.print(tp.coupe(test));
+//            tpcoupe = tp.coupe(test);
+        } catch (IndexHorsPorte H) {
+            System.out.println("Hors Porte");
+        }
+
         try {
             System.out.println("Tableau position 5 " + tp.position((Integer) 5));
         } catch (ElementNonPresent E) {

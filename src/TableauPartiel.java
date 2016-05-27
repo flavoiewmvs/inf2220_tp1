@@ -27,10 +27,6 @@ public class TableauPartiel<E> {
 
     public TableauPartiel(E[] a_tableau) {
         _tableau = (E[]) new Object[(a_tableau.length)];
-        
-               E[] qq;
-        qq = (E[]) new Object[(taille())];
-        _tableau = (E[]) new Object[(a_tableau.length)];
 
         for (int indice = 0; indice <= a_tableau.length - 1; ++indice) {
             _tableau[indice] = a_tableau[indice];
@@ -78,24 +74,39 @@ public class TableauPartiel<E> {
         return trouvé;
     }
 
-    public void coupe(Coupe a_coupe) throws IndexHorsPorte {
+    public TableauPartiel<E> coupe(Coupe a_coupe) throws IndexHorsPorte {
         //TableauPartiel<E> type de retour
 //Finalement, la méthode coupe donne un nouveau TableauPartiel à partir de la coupe donnée.
 //Ce nouveau tableau contient une référence sur le tableau d’origine. Donc, les cases modifiées dans ce
 //nouveau tableau seront aussi modifiées dans l’ancien tableau. Le premier élément d’un
 //TableauPartiel est adressé par l’indice zéro, même si son indice diffère dans le tableau d’origine.
 //Si la Coupe contient un ou des indices non valides, l’exception IndexHorsPorte est lancée.
-     }
+//       if (a_coupe.fin() > taille() || a_position < 0) {
+//            throw new IndexHorsPorte();
+//        }
+//        TableauPartiel<E>[] nouveauTableau;
+        ////       TableauPartiel<Integer> nouveauTableau = new TableauPartiel<Integer>(monTab);
+//        nouveauTableau = TableauPartiel new Object[5];//pour test faite comme si serais 5
+        E[] nouveauTableau;
+        nouveauTableau = (E[]) new Object[5];
+
+        for (int indice = 0; indice <= 4; ++indice) { //place <= 5 mais devrons avoir donne de coupe
+            nouveauTableau[indice] = get(indice);
+        }
+        TableauPartiel<E> tp = new TableauPartiel<E>(nouveauTableau);
+        
+        return tp;
+    }
 
     public E[] elements() {
 //    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
 //C’est une copie du tableau qui doit être retournée
 
-         E[] tableaujava;
+        E[] tableaujava;
         tableaujava = (E[]) new Object[(taille())];
         for (int indice = 0; indice <= taille() - 1; ++indice) {
             tableaujava[indice] = _tableau[indice];
-        }       
+        }
         return tableaujava;
     }
 
