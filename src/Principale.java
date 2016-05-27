@@ -23,6 +23,9 @@ public class Principale {
         System.out.println(monTab[5]);
         System.out.println("Tableau contient 99 " + tp.contient(99));
         System.out.println("Tableau contient 5 " + tp.contient(5));
+        System.out.println( "--->>>"+tp.elements());
+        System.out.println( "--->>>");
+        Object[] monTabRetour = tp.elements();
         try {
             System.out.println("Tableau position 5 " + tp.position((Integer) 5));
         } catch (ElementNonPresent E) {
@@ -35,7 +38,7 @@ public class Principale {
             System.out.println("Element 5 hors porté");
         }
         try {
-            tp.set(5,999);
+            tp.set(5, 999);
             System.out.println("ref Tableau position 5 " + tp.get(5));
         } catch (IndexHorsPorte E) {
             System.out.println("Element 5 hors porté");
