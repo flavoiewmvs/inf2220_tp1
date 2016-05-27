@@ -8,14 +8,14 @@
  */
 public class TableauPartiel<E> {
 
-    public E[] tableau;
+    public E[] _tableau;
 
     public TableauPartiel(E[] a_tableau) {
-        tableau = a_tableau.clone();
+        _tableau = a_tableau.clone();
     }
 
     public TableauPartiel(TableauPartiel<E> a_tableauPartiel) {
-        tableau = a_tableauPartiel.tableau;
+        _tableau = a_tableauPartiel._tableau;
     }
 
  
@@ -76,6 +76,6 @@ public class TableauPartiel<E> {
 
     public int taille() {
  //Cette méthode retourne le nombre de case que contient le tableau.
-        return 1;
+        return _tableau.length;
     }
 }
