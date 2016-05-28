@@ -28,12 +28,16 @@ public class Principale {
 
         Object[] monTabRetour = tp.elements();
         TableauPartiel tpN = tp;
+        TableauPartiel tpN2 = tp;
+
         try {
 //            Coupe test = new CoupeA(5);
 //            Coupe test = new CoupeDeA(4,7);
-            Coupe test = new CoupeDe(4);
+            Coupe testCoupe1 = new CoupeDe(4);
+            Coupe testCoupe2 = new CoupeDeA(3, 5);
 
-            tpN = tp.coupe(test);
+            tpN = tp.coupe(testCoupe1);
+            tpN2 = tpN.coupe(testCoupe2);
         } catch (IndexHorsPorte H) {
             System.out.println("Hors Porte");
         }
@@ -50,7 +54,7 @@ public class Principale {
             System.out.println("Element 5 hors porté");
         }
         try {
-            tp.set(4, 999);
+            tp.set(7, 999);
             System.out.println("tp ref Tableau position 4 " + tp.get(4));
             System.out.println("tpN apres coupe  ref Tableau position 4 " + tpN.get(4));
         } catch (IndexHorsPorte E) {

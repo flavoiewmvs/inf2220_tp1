@@ -9,13 +9,12 @@ public class TableauPartiel<E> {
 //    private E[] _tableau;
     private Item[] _tableau;
 
-
     public TableauPartiel(E[] a_tableau) {
 //        _tableau = (E[]) new Object[(a_tableau.length)];
         _tableau = (Item[]) new Item[(a_tableau.length)];
 
         for (int indice = 0; indice <= a_tableau.length - 1; ++indice) {
-            _tableau[indice] = new Item<E>( a_tableau[indice]);
+            _tableau[indice] = new Item<E>(a_tableau[indice]);
 //            _tableau[indice] = a_tableau[indice];
         }
     }
@@ -26,6 +25,10 @@ public class TableauPartiel<E> {
         for (int indice = 0; indice <= a_tableauPartiel.taille() - 1; ++indice) {
             _tableau[indice] = a_tableauPartiel._tableau[indice];
         }
+    }
+
+    public TableauPartiel(int nb) {
+        _tableau = (Item[]) new Item[nb];
     }
 
     public int position(E a_element) throws ElementNonPresent {
@@ -56,7 +59,7 @@ public class TableauPartiel<E> {
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length && !trouvé; pos++) {
 //            Item itemCourant = _tableau[pos];
-           E test = (E) _tableau[pos].getValeur();
+            E test = (E) _tableau[pos].getValeur();
             if (test.equals(a_element)) {
                 trouvé = true;
             }
@@ -64,7 +67,7 @@ public class TableauPartiel<E> {
         return trouvé;
     }
 
-    public void coupe(Coupe a_coupe) throws IndexHorsPorte {
+    public TableauPartiel<E> coupe(Coupe a_coupe) throws IndexHorsPorte {
         //TableauPartiel<E> type de retour
 //Finalement, la méthode coupe donne un nouveau TableauPartiel à partir de la coupe donnée.
 //Ce nouveau tableau contient une référence sur le tableau d’origine. Donc, les cases modifiées dans ce
@@ -74,19 +77,25 @@ public class TableauPartiel<E> {
 //       if (a_coupe.fin() > taille() || a_position < 0) {
 //            throw new IndexHorsPorte();
 //        }
-//        TableauPartiel<E>[] nouveauTableau;
-        ////       TableauPartiel<Integer> nouveauTableau = new TableauPartiel<Integer>(monTab);
-//        nouveauTableau = TableauPartiel new Object[5];//pour test faite comme si serais 5
-        Item[] nouveauTableau;
-        nouveauTableau = (Item[]) new Object[5];
-//        nouveauTableau = (E[]) new Object[5];
-//        TableauPartiel<E> stp = new TableauPartiel<E>(nouveauTableau);
-        for (int indice = 0; indice <= 4; ++indice) { //place <= 5 mais devrons avoir donne de coupe
-            nouveauTableau[indice] = _tableau[indice+2];
+
+        int nIndice = 0;
+        int debut = a_coupe.getDebut();
+        int fin = a_coupe.getFin();
+
+        if (fin == 999) {
+            fin = taille();
         }
-//        TableauPartiel<E> tpn = new TableauPartiel<E>(nouveauTableau);
-        
-//        return stp;
+        TableauPartiel<E> ntp = new TableauPartiel<E>(fin-debut);
+        for (int indice = debut; indice < fin; ++indice) { //place <= 5 mais devrons avoir donne de coupe
+            try {
+                ntp.setItem(nIndice, _tableau[indice]);
+                ++nIndice;
+            } catch (IndexHorsPorte IHP) {
+                System.out.println("Element  hors porté");
+            }
+        }
+
+        return ntp;
     }
 
     public E[] elements() {
@@ -145,30 +154,39 @@ public class TableauPartiel<E> {
         if (a_position > taille() || a_position < 0) {
             throw new IndexHorsPorte();
         }
-        _tableau[a_position] = new Item<E>( a_element);
+        //        _tableau[a_position] = new Item<E>(a_element);
+        _tableau[a_position].setValeur(a_element);
+    }
+
+    public void setItem(int a_position, Item a_element) throws IndexHorsPorte {
+//       public void set( int a_position , E a_element ) throws IndexHorsPorte.
+//Cette méthode assigne une valeur à la position indiquée. Vérifiez la position pour qu’elle soit dans
+//l’intervalle permise pour le tableau ( IndexHorsPorte ). 
+        if (a_position > taille() || a_position < 0) {
+            throw new IndexHorsPorte();
+        }
+        _tableau[a_position] = a_element;
     }
 
     public int taille() {
         //Cette méthode retourne le nombre de case que contient le tableau.
         return _tableau.length;
     }
-    
-    
-       private class Item<I> {
 
-        public I getValeur() {
-            return valeur;
-        }
+    private class Item<I> {
 
-        @Override
-        public String toString() {
-            return "Item{" + "element=" + valeur + '}';
-        }
-
-        public I valeur;
+        private I valeur;
 
         public Item(I a_valeur) {
             valeur = a_valeur;
+        }
+
+        public void setValeur(I valeur) {
+            this.valeur = valeur;
+        }
+
+        public I getValeur() {
+            return valeur;
         }
     }
 }

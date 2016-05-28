@@ -24,4 +24,12 @@ public class CoupeDeA extends Coupe {
     public int fin() {
         return _fin;
     }
+
+    public int getDebut() {
+        return _debut;
+    }
+
+    public int getFin() {
+        return _fin;
+    }
 }
