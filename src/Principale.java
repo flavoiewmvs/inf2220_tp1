@@ -11,7 +11,7 @@
 public class Principale {
 
     public static void main(String[] args) {
-        System.out.println("Tp1.Principale.main()");
+        System.out.println("Tp1.Principale.main()\n\n");
 //        Integer[] monTab = {0, 1, 2, 3, 4, 99, 6, 7, 8, 9};
         Integer[] monTab = new Integer[11];
         for (int i = 0; i < 11; i++) {
