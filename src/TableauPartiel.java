@@ -1,6 +1,4 @@
 
-import sun.font.EAttribute;
-
 /**
  *
  * @author flavo Fabien Lavoie Lavf27046702
@@ -9,32 +7,22 @@ import sun.font.EAttribute;
 public class TableauPartiel<E> {
 
 //    private E[] _tableau;
-    private E[] _tableau;
+    private Item[] _tableau;
 
-    private class Item<E> {
-
-        @Override
-        public String toString() {
-            return "Item{" + "element=" + valeur + '}';
-        }
-
-        private E valeur;
-
-        public Item(E a_valeur) {
-            valeur = a_valeur;
-        }
-    }
 
     public TableauPartiel(E[] a_tableau) {
-        _tableau = (E[]) new Object[(a_tableau.length)];
+//        _tableau = (E[]) new Object[(a_tableau.length)];
+        _tableau = (Item[]) new Item[(a_tableau.length)];
 
         for (int indice = 0; indice <= a_tableau.length - 1; ++indice) {
-            _tableau[indice] = a_tableau[indice];
+            _tableau[indice] = new Item<E>( a_tableau[indice]);
+//            _tableau[indice] = a_tableau[indice];
         }
     }
 
     public TableauPartiel(TableauPartiel<E> a_tableauPartiel) {
-        _tableau = (E[]) new Object[a_tableauPartiel.taille()];
+        _tableau = (Item[]) new Item[a_tableauPartiel.taille()];
+//        _tableau = (E[]) new Object[a_tableauPartiel.taille()];
         for (int indice = 0; indice <= a_tableauPartiel.taille() - 1; ++indice) {
             _tableau[indice] = a_tableauPartiel._tableau[indice];
         }
@@ -49,8 +37,9 @@ public class TableauPartiel<E> {
         boolean trouvé = false;
         int pos;
         for (pos = 0; pos < _tableau.length && !trouvé; pos++) {
-            E item = _tableau[pos];
-            if (item.equals(a_element)) {
+//            Item itemCourant = _tableau[pos].getValeur();
+            E test = (E) _tableau[pos].getValeur();
+            if (test.equals(a_element)) {
                 trouvé = true;
             }
         }
@@ -66,15 +55,16 @@ public class TableauPartiel<E> {
 //position et remplacer .
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length && !trouvé; pos++) {
-            E item = _tableau[pos];
-            if (item.equals(a_element)) {
+//            Item itemCourant = _tableau[pos];
+           E test = (E) _tableau[pos].getValeur();
+            if (test.equals(a_element)) {
                 trouvé = true;
             }
         }
         return trouvé;
     }
 
-    public TableauPartiel<E> coupe(Coupe a_coupe) throws IndexHorsPorte {
+    public void coupe(Coupe a_coupe) throws IndexHorsPorte {
         //TableauPartiel<E> type de retour
 //Finalement, la méthode coupe donne un nouveau TableauPartiel à partir de la coupe donnée.
 //Ce nouveau tableau contient une référence sur le tableau d’origine. Donc, les cases modifiées dans ce
@@ -87,15 +77,16 @@ public class TableauPartiel<E> {
 //        TableauPartiel<E>[] nouveauTableau;
         ////       TableauPartiel<Integer> nouveauTableau = new TableauPartiel<Integer>(monTab);
 //        nouveauTableau = TableauPartiel new Object[5];//pour test faite comme si serais 5
-        E[] nouveauTableau;
-        nouveauTableau = (E[]) new Object[5];
-
+        Item[] nouveauTableau;
+        nouveauTableau = (Item[]) new Object[5];
+//        nouveauTableau = (E[]) new Object[5];
+//        TableauPartiel<E> stp = new TableauPartiel<E>(nouveauTableau);
         for (int indice = 0; indice <= 4; ++indice) { //place <= 5 mais devrons avoir donne de coupe
-            nouveauTableau[indice] = get(indice);
+            nouveauTableau[indice] = _tableau[indice+2];
         }
-        TableauPartiel<E> tp = new TableauPartiel<E>(nouveauTableau);
+//        TableauPartiel<E> tpn = new TableauPartiel<E>(nouveauTableau);
         
-        return tp;
+//        return stp;
     }
 
     public E[] elements() {
@@ -105,7 +96,7 @@ public class TableauPartiel<E> {
         E[] tableaujava;
         tableaujava = (E[]) new Object[(taille())];
         for (int indice = 0; indice <= taille() - 1; ++indice) {
-            tableaujava[indice] = _tableau[indice];
+            tableaujava[indice] = (E) _tableau[indice].getValeur();
         }
         return tableaujava;
     }
@@ -121,7 +112,7 @@ public class TableauPartiel<E> {
         if (a_position > taille() || a_position < 0) {
             throw new IndexHorsPorte();
         }
-        return _tableau[a_position];
+        return (E) _tableau[a_position].getValeur();
     }
 
     public void remplacer(E a_ancien, E a_nouveau) throws ElementNonPresent {
@@ -131,8 +122,8 @@ public class TableauPartiel<E> {
 //position et remplacer .
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length; pos++) {
-            E item = _tableau[pos];
-            if (item.equals(a_ancien)) {
+            Item itemTraité = _tableau[pos];
+            if (itemTraité.equals(a_ancien)) {
                 trouvé = true;
                 try {
                     set(pos, a_nouveau);
@@ -154,11 +145,30 @@ public class TableauPartiel<E> {
         if (a_position > taille() || a_position < 0) {
             throw new IndexHorsPorte();
         }
-        _tableau[a_position] = a_element;
+        _tableau[a_position] = new Item<E>( a_element);
     }
 
     public int taille() {
         //Cette méthode retourne le nombre de case que contient le tableau.
         return _tableau.length;
+    }
+    
+    
+       private class Item<I> {
+
+        public I getValeur() {
+            return valeur;
+        }
+
+        @Override
+        public String toString() {
+            return "Item{" + "element=" + valeur + '}';
+        }
+
+        public I valeur;
+
+        public Item(I a_valeur) {
+            valeur = a_valeur;
+        }
     }
 }
