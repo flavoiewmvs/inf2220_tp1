@@ -27,12 +27,13 @@ public class Principale {
         System.out.println("--->>>");
 
         Object[] monTabRetour = tp.elements();
-
+        TableauPartiel tpN = tp;
         try {
-            CoupeA test = new CoupeA(5);
-            TableauPartiel<Integer> tpcoupe;
-            System.out.print(tp.coupe(test));
-//            tpcoupe = tp.coupe(test);
+//            Coupe test = new CoupeA(5);
+//            Coupe test = new CoupeDeA(4,7);
+            Coupe test = new CoupeDe(4);
+
+            tpN = tp.coupe(test);
         } catch (IndexHorsPorte H) {
             System.out.println("Hors Porte");
         }
@@ -49,10 +50,11 @@ public class Principale {
             System.out.println("Element 5 hors porté");
         }
         try {
-            tp.set(5, 999);
-            System.out.println("ref Tableau position 5 " + tp.get(5));
+            tp.set(4, 999);
+            System.out.println("tp ref Tableau position 4 " + tp.get(4));
+            System.out.println("tpN apres coupe  ref Tableau position 4 " + tpN.get(4));
         } catch (IndexHorsPorte E) {
-            System.out.println("Element 5 hors porté");
+            System.out.println("Element 4 hors porté");
         }
     }
 
