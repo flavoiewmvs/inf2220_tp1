@@ -99,9 +99,15 @@ public class TableauPartiel<E> {
     public E[] elements() {
 //    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
 //C’est une copie du tableau qui doit être retournée
+        Class cls = _tableau[0].getValeur().getClass();
+        System.out.println("The type of the object is: " + cls.getName());
+        //solution pour identifier le type de mon object car limitation des type generic
+                    E[] tableaujava = (E[]) new Integer[(taille())];
+ 
+//        Object[] tableaujava=new Object[(taille())];
+//        E[] tableaujava = (E[]) new Object[(taille())];
 
-        E[] tableaujava;
-        tableaujava = (E[]) new Object[(taille())];
+//        E[] tableaujava = (E[]) new Integer[(taille())];
         for (int indice = 0; indice <= taille() - 1; ++indice) {
             tableaujava[indice] = (E) _tableau[indice].getValeur();
         }
