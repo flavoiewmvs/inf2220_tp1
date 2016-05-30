@@ -10,7 +10,7 @@
  */
 public class Principale {
 
-    public static void main(String[] args) {
+    public static void main_old(String[] args) {
         System.out.println("Tp1.Principale.main()\n\n");
 //        Integer[] monTab = {0, 1, 2, 3, 4, 99, 6, 7, 8, 9};
         Integer[] monTab = new Integer[11];
@@ -42,6 +42,14 @@ public class Principale {
             System.out.println("Hors Porte");
         }
 
+                try {
+            tp.set(7, 88);
+            System.out.println("tp ref Tableau position 4 " + tp.get(4));
+            System.out.println("tpN apres coupe  ref Tableau position 4 " + tpN.get(4));
+        } catch (IndexHorsPorte E) {
+            System.out.println("Element 4 hors porté");
+        }
+        
         try {
             System.out.println("Tableau position 5 " + tp.position((Integer) 5));
         } catch (ElementNonPresent E) {
