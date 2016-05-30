@@ -6,22 +6,18 @@
  */
 public class TableauPartiel<E> {
 
-//    private E[] _tableau;
     private Item[] _tableau;
 
     public TableauPartiel(E[] a_tableau) {
-//        _tableau = (E[]) new Object[(a_tableau.length)];
         _tableau = (Item[]) new Item[(a_tableau.length)];
 
         for (int indice = 0; indice <= a_tableau.length - 1; ++indice) {
             _tableau[indice] = new Item<E>(a_tableau[indice]);
-//            _tableau[indice] = a_tableau[indice];
         }
     }
 
     public TableauPartiel(TableauPartiel<E> a_tableauPartiel) {
         _tableau = (Item[]) new Item[a_tableauPartiel.taille()];
-//        _tableau = (E[]) new Object[a_tableauPartiel.taille()];
         for (int indice = 0; indice <= a_tableauPartiel.taille() - 1; ++indice) {
             _tableau[indice] = a_tableauPartiel._tableau[indice];
         }
@@ -40,7 +36,6 @@ public class TableauPartiel<E> {
         boolean trouvé = false;
         int pos;
         for (pos = 0; pos < _tableau.length && !trouvé; pos++) {
-//            Item itemCourant = _tableau[pos].getValeur();
             E test = (E) _tableau[pos].getValeur();
             if (test.equals(a_element)) {
                 trouvé = true;
@@ -58,7 +53,6 @@ public class TableauPartiel<E> {
 //position et remplacer .
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length && !trouvé; pos++) {
-//            Item itemCourant = _tableau[pos];
             E test = (E) _tableau[pos].getValeur();
             if (test.equals(a_element)) {
                 trouvé = true;
@@ -154,7 +148,6 @@ public class TableauPartiel<E> {
         if (a_position > taille() || a_position < 0) {
             throw new IndexHorsPorte();
         }
-        //        _tableau[a_position] = new Item<E>(a_element);
         _tableau[a_position].setValeur(a_element);
     }
 
