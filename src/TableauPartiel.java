@@ -80,11 +80,10 @@ public class TableauPartiel<E> {
 
         int nIndice = 0;
         int debut = a_coupe.getDebut();
-        int fin = a_coupe.getFin();
+        int fin = a_coupe.getFin(this);
+//        int fin = a_coupe.getFin();
 
-        if (fin == 999) {
-            fin = taille();
-        }
+ 
         TableauPartiel<E> ntp = new TableauPartiel<E>(fin - debut);
         for (int indice = debut; indice < fin; ++indice) { //place <= 5 mais devrons avoir donne de coupe
             try {

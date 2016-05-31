@@ -12,6 +12,7 @@ public class CoupeDeA extends Coupe {
 
     public CoupeDeA(int a_debut, int a_fin) {
         assert 0 <= a_debut;
+        System.out.println("Valeur < ="); 
         assert a_debut <= a_fin;
         _debut = a_debut;
         _fin = a_fin;
@@ -29,7 +30,7 @@ public class CoupeDeA extends Coupe {
         return _debut;
     }
 
-    public int getFin() {
-        return _fin;
+   public int getFin(TableauPartiel Tableau) {
+         return Tableau.taille()-1;
     }
 }

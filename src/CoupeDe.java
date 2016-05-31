@@ -23,7 +23,9 @@ public class CoupeDe extends Coupe {
         return _debut;
     }
 
-    public int getFin() {
-        return _fin;
+    public int getFin(TableauPartiel Tableau) {
+        // je retourne la taille du tableau qui correcpond a tous les elements
+        return Tableau.taille();
+//        return _fin;
     }
 }

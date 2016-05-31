@@ -13,8 +13,5 @@ public abstract class Coupe {
     public int getDebut() {
         return _debut;
     }
-
-    public int getFin() {
-        return _fin;
-    }
+    public abstract int getFin(TableauPartiel Tableau);
 }

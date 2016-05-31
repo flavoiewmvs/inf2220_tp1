@@ -22,8 +22,7 @@ public class CoupeA extends Coupe {
     public int getDebut() {
         return _debut;
     }
-
-    public int getFin() {
+    public int getFin(TableauPartiel Tableau) {
         return _fin;
     }
 }
