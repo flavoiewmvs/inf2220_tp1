@@ -1,4 +1,6 @@
 
+import java.lang.reflect.Array;
+
 /**
  *
  * @author flavo Fabien Lavoie Lavf27046702
@@ -99,19 +101,17 @@ public class TableauPartiel<E> {
     public E[] elements() {
 //    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
 //C’est une copie du tableau qui doit être retournée
-        Class cls = _tableau[0].getValeur().getClass();
-        System.out.println("The type of the object is: " + cls.getName());
-        //solution pour identifier le type de mon object car limitation des type generic
-                    E[] tableaujava = (E[]) new Integer[(taille())];
- 
-//        Object[] tableaujava=new Object[(taille())];
+
+        //solution pour identifier le type de mon object et creer tableau de type E[] car limitation des type generic
+         E[] tableau = (E[]) Array.newInstance(_tableau[0].getValeur().getClass(), taille());
 //        E[] tableaujava = (E[]) new Object[(taille())];
 
-//        E[] tableaujava = (E[]) new Integer[(taille())];
         for (int indice = 0; indice <= taille() - 1; ++indice) {
-            tableaujava[indice] = (E) _tableau[indice].getValeur();
+//            tableaujava[indice] = (E) _tableau[indice].getValeur();
+            tableau[indice] = (E) _tableau[indice].getValeur();
         }
-        return tableaujava;
+
+        return tableau;
     }
 
     public boolean estVide() {
