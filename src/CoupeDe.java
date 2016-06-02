@@ -5,12 +5,18 @@
  * Fabien Lavoie
  * Lavf27046702
  */
+/**
+ * *nous donne un indice de départ et nous prenons tout jusqu’à la fin du tableau.
+ */
 public class CoupeDe extends Coupe {
 
     private int _debut;
     private int _fin = 999;
 
-    public CoupeDe(int a_debut) {
+    public CoupeDe(int a_debut) throws IndexHorsPorte {
+        if (a_debut < 0) {
+            throw new IndexHorsPorte();
+        }
         assert 0 <= a_debut;
         _debut = a_debut;
     }
@@ -24,8 +30,6 @@ public class CoupeDe extends Coupe {
     }
 
     public int getFin(TableauPartiel Tableau) {
-        // je retourne la taille du tableau qui correcpond a tous les elements
         return Tableau.taille();
-//        return _fin;
     }
 }

@@ -5,6 +5,15 @@ import java.lang.reflect.Array;
  *
  * @author flavo Fabien Lavoie Lavf27046702
  * @param <E>
+ *
+ * Le premier constructeur prend un tableau Java et le transforme en
+ * TableauPartiel . Cette transformation va demander de construire une copie du
+ * tableau reçu en argument, ne prenez pas seulement la référence. Nous ne
+ * voulons pas qu’il y ait de lien entre notre tableau et celui qui est utilisé
+ * pour le construire. Le deuxième constructeur fait une copie d’un
+ * TableauPartiel . Cette copie n’est pas une référence vers le tableau
+ * original. C’est une version sans lien. Nous allons maintenant décrire les
+ * méthodes que vous devez coder dans cette classe.
  */
 public class TableauPartiel<E> {
 
@@ -21,14 +30,12 @@ public class TableauPartiel<E> {
     public TableauPartiel(TableauPartiel<E> a_tableauPartiel) {
         _tableau = (Item[]) new Item[a_tableauPartiel.taille()];
         for (int indice = 0; indice <= a_tableauPartiel.taille() - 1; ++indice) {
-            // modifier pour retourner la valeur et non la reference et 
-            // creation d<item <E> encapsuler pour garder sa reference
             _tableau[indice] = new Item<E>((E) a_tableauPartiel._tableau[indice].getValeur());
-//            _tableau[indice] = a_tableauPartiel._tableau[indice];
         }
     }
 
     public TableauPartiel(int nb) {
+        //creation d<un tableau vide de la longueur nb
         _tableau = (Item[]) new Item[nb];
     }
 
@@ -58,7 +65,6 @@ public class TableauPartiel<E> {
 //position et remplacer .
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length && !trouvé; pos++) {
-//            Item itemCourant = _tableau[pos];
             E test = (E) _tableau[pos].getValeur();
             if (test.equals(a_element)) {
                 trouvé = true;
@@ -68,24 +74,20 @@ public class TableauPartiel<E> {
     }
 
     public TableauPartiel<E> coupe(Coupe a_coupe) throws IndexHorsPorte {
-        //TableauPartiel<E> type de retour
 //Finalement, la méthode coupe donne un nouveau TableauPartiel à partir de la coupe donnée.
 //Ce nouveau tableau contient une référence sur le tableau d’origine. Donc, les cases modifiées dans ce
 //nouveau tableau seront aussi modifiées dans l’ancien tableau. Le premier élément d’un
 //TableauPartiel est adressé par l’indice zéro, même si son indice diffère dans le tableau d’origine.
 //Si la Coupe contient un ou des indices non valides, l’exception IndexHorsPorte est lancée.
-//       if (a_coupe.fin() > taille() || a_position < 0) {
-//            throw new IndexHorsPorte();
-//        }
 
         int nIndice = 0;
         int debut = a_coupe.getDebut();
         int fin = a_coupe.getFin(this);
-//        int fin = a_coupe.getFin();
-
- 
+        if (fin > taille() || debut < 0 || debut > fin) {
+            throw new IndexHorsPorte();
+        }
         TableauPartiel<E> ntp = new TableauPartiel<E>(fin - debut);
-        for (int indice = debut; indice < fin; ++indice) { //place <= 5 mais devrons avoir donne de coupe
+        for (int indice = debut; indice < fin; ++indice) {
             try {
                 ntp.setItem(nIndice, _tableau[indice]);
                 ++nIndice;
@@ -99,14 +101,9 @@ public class TableauPartiel<E> {
 
     public E[] elements() {
 //    Cette méthode retourne un nouveau tableau Java contenant les éléments du TableauPartiel .
-//C’est une copie du tableau qui doit être retournée
-
-        //solution pour identifier le type de mon object et creer tableau de type E[] car limitation des type generic
-         E[] tableau = (E[]) Array.newInstance(_tableau[0].getValeur().getClass(), taille());
-//        E[] tableaujava = (E[]) new Object[(taille())];
+        E[] tableau = (E[]) Array.newInstance(_tableau[0].getValeur().getClass(), taille());
 
         for (int indice = 0; indice <= taille() - 1; ++indice) {
-//            tableaujava[indice] = (E) _tableau[indice].getValeur();
             tableau[indice] = (E) _tableau[indice].getValeur();
         }
 
@@ -133,9 +130,6 @@ public class TableauPartiel<E> {
 //position et remplacer .
         boolean trouvé = false;
         for (int pos = 0; pos < _tableau.length; pos++) {
-//            itemTraité = _tableau[pos].getValeur();
-//            Item itemTraité = _tableau[pos];
-//            if (itemTraité.equals(a_ancien)) {
             if (_tableau[pos].getValeur().equals(a_ancien)) {
                 trouvé = true;
                 try {
@@ -152,7 +146,6 @@ public class TableauPartiel<E> {
     }
 
     public void set(int a_position, E a_element) throws IndexHorsPorte {
-//       public void set( int a_position , E a_element ) throws IndexHorsPorte.
 //Cette méthode assigne une valeur à la position indiquée. Vérifiez la position pour qu’elle soit dans
 //l’intervalle permise pour le tableau ( IndexHorsPorte ). 
         if (a_position > taille() || a_position < 0) {
@@ -163,7 +156,6 @@ public class TableauPartiel<E> {
     }
 
     public void setItem(int a_position, Item a_element) throws IndexHorsPorte {
-//       public void set( int a_position , E a_element ) throws IndexHorsPorte.
 //Cette méthode assigne une valeur à la position indiquée. Vérifiez la position pour qu’elle soit dans
 //l’intervalle permise pour le tableau ( IndexHorsPorte ). 
         if (a_position > taille() || a_position < 0) {
@@ -173,11 +165,12 @@ public class TableauPartiel<E> {
     }
 
     public int taille() {
-        //Cette méthode retourne le nombre de case que contient le tableau.
+//Cette méthode retourne le nombre de case que contient le tableau.
         return _tableau.length;
     }
 
     private class Item<I> {
+// cette class contient notre reférence a notre objet contenue dans le tableau
 
         private I valeur;
 
